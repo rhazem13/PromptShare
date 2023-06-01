@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 
 import Form from "@components/Form";
 const CreatePrompt = () => {
-    const router = useRouter();
-    const { data: session} = useSession();
+  const router = useRouter();
+  const { data: session } = useSession();
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({
     prompt: "",
@@ -21,7 +21,11 @@ const CreatePrompt = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(post),
+        body: JSON.stringify({
+          prompt: post.prompt,
+          userId: session?.user.id,
+          tag: post.tag,
+        }),
       });
       setSubmitting(false);
       const json = await res.json();
