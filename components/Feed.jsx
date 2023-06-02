@@ -19,13 +19,42 @@ const PromptCardList = ({ data, handleTagClick }) => {
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [prompts, setPrompts] = useState([]);
-  const handleSearchChange = (e) => {};
+  const [filteredPrompts, setFilteredPrompts] = useState([]);
+  const handleSearchChange = (e) => {
+    // filter prompts based on search text 
+    // the search text filters based on tags and usernames and prompt text
+    setSearchText(e.target.value);
+    const filteredPrompts = prompts.filter((prompt) => {
+      const promptText = prompt.prompt.toLowerCase();
+      const tag = prompt.tag.toLowerCase();
+      const username = prompt.creator.username.toLowerCase();
+      return (
+        promptText.includes(e.target.value.toLowerCase()) ||
+        tag.includes(e.target.value.toLowerCase()) ||
+        username.includes(e.target.value.toLowerCase())
+      );
+    }
+    );
+    setFilteredPrompts(filteredPrompts);
+
+  };
+  const handleTagClick = (tag) => {
+    // filter prompts based on tag
+    setSearchText(tag);
+    const filteredPrompts = prompts.filter((prompt) => {
+      const prompttag = prompt.tag.toLowerCase();
+      return prompttag.includes(tag.toLowerCase());
+    }
+    );
+    setFilteredPrompts(filteredPrompts);
+  }
   useEffect(() => {
     const fetchPrompts = async () => {
       const response = await fetch("/api/prompt");
       const data = await response.json();
       setPrompts(data);
       console.log(data);
+      setFilteredPrompts(data);
     };
     fetchPrompts();
   },[]);
@@ -41,7 +70,7 @@ const Feed = () => {
           className="search_input peer"
         />
       </form>
-      <PromptCardList data={prompts} handleTagClick={() => {}} />
+      <PromptCardList data={filteredPrompts} handleTagClick={(tag) => {handleTagClick(tag)}} />
     </section>
   );
 };
