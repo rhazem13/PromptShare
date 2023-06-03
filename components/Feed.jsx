@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import PromptCard from "./PromptCard";
 
 const PromptCardList = ({ data, handleTagClick }) => {
@@ -20,6 +20,15 @@ const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [prompts, setPrompts] = useState([]);
   const [filteredPrompts, setFilteredPrompts] = useState([]);
+  useLayoutEffect(() => {
+    const fetchPrompts = async () => {
+      const response = await fetch("/api/prompt");
+      const data = await response.json();
+      setPrompts(data);
+      setFilteredPrompts(data);
+    };
+    fetchPrompts();
+  }, []);
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
     const filterText = e.target.value.toLowerCase();
