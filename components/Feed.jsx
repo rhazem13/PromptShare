@@ -52,7 +52,7 @@ const Feed = () => {
       setFilteredPrompts(data);
     };
     fetchPrompts();
-  }, []);
+  }, [prompts, filteredPrompts]);
   return (
     <section className="feed">
       <form className="relative w-full flext-center">
