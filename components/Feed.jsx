@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect, useLayoutEffect } from "react";
 import PromptCard from "./PromptCard";
-
+import { useRouter } from "next/navigation";
+import usePageVisibility from "@utils/usePageVisibility";
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
     <div className="mt-16 prompt_layout">
@@ -17,18 +18,21 @@ const PromptCardList = ({ data, handleTagClick }) => {
 };
 
 const Feed = () => {
+  const router = useRouter();
+  const isVisible = usePageVisibility();
+
   const [searchText, setSearchText] = useState("");
   const [prompts, setPrompts] = useState([]);
   const [filteredPrompts, setFilteredPrompts] = useState([]);
-  useLayoutEffect(() => {
-    const fetchPrompts = async () => {
-      const response = await fetch("/api/prompt");
-      const data = await response.json();
-      setPrompts(data);
-      setFilteredPrompts(data);
-    };
-    fetchPrompts();
-  }, []);
+  // useLayoutEffect(() => {
+  //   const fetchPrompts = async () => {
+  //     const response = await fetch("/api/prompt");
+  //     const data = await response.json();
+  //     setPrompts(data);
+  //     setFilteredPrompts(data);
+  //   };
+  //   fetchPrompts();
+  // }, []);
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
     const filterText = e.target.value.toLowerCase();
@@ -60,8 +64,10 @@ const Feed = () => {
       setPrompts(data);
       setFilteredPrompts(data);
     };
-    fetchPrompts();
-  }, []);
+    if (isVisible ) {
+      fetchPrompts();
+    }
+  }, [isVisible]);
   return (
     <section className="feed">
       <form className="relative w-full flext-center">
