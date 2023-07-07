@@ -11,6 +11,7 @@ const Home = () => {
         PromptShare is an open-source AI prompting tool for modern world to
         discover, create and share creative prompts
       </p>
+      <p className="desc text-center" style={{fontSize:'12px'}}>Hazem Ragab 2023 ©</p>
 
       <Feed />
     </section>
