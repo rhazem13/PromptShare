@@ -1,10 +1,19 @@
 {
   "routes": [
     {
-      "src": "/api/prompts",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-store, must-revalidate" }
-      ]
+      "src": "/api/*",
+      "dest": "api/index.js",
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Access-Control-Allow-Origin": "*"
+      }
+    },
+    {
+      "src": "/",
+      "dest": "index.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0"
+      }
     }
   ]
 }
