@@ -6,7 +6,11 @@ export const GET = async (request) => {
     await connectToDB();
 
     const prompts = await Prompt.find({}).populate("creator");
-    return new Response(JSON.stringify(prompts), { status: 200 });
+    const responseHeaders = {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store, must-revalidate",
+    };
+    return new Response(JSON.stringify(prompts), { status: 200, headers: responseHeaders });
   } catch (error) {
     console.log(error);
     return new Response(JSON.stringify(error), { status: 500 });
