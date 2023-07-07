@@ -5,8 +5,7 @@
       "dest": "api/index.js",
       "headers": {
         "Cache-Control": "no-cache",
-        "Access-Control-Allow-Origin": "*",
-        "X-Vercel-Cache:" : "MISS"
+        "Access-Control-Allow-Origin": "*"
       }
     },
     {
