@@ -15,4 +15,5 @@ export const GET = async (request) => {
     console.log(error);
     return new Response(JSON.stringify(error), { status: 500 });
   }
+  // comment
 };
