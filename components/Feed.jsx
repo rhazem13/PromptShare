@@ -59,7 +59,7 @@ const Feed = () => {
   };
   useEffect(() => {
     const fetchPrompts = async () => {
-      const response = await fetch("/api/prompt");
+      const response = await fetch("/api/prompt", { next: { revalidate: 1 } });
       const data = await response.json();
       setPrompts(data);
       setFilteredPrompts(data);
