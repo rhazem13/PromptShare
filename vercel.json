@@ -1,0 +1,10 @@
+{
+  "routes": [
+    {
+      "src": "/api/prompts",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, must-revalidate" }
+      ]
+    }
+  ]
+}
