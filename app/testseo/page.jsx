@@ -1,6 +1,9 @@
-"use server"
 import Head from "next/head";
-
+export const metadata = {
+  title: "testseo",
+  description: "test that yeah lets test our seo",
+  keywords: "SEO, test, zomazoma, keywords",
+};
 const TestSEOPage = () => {
   return (
     <div>

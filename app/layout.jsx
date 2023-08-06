@@ -4,7 +4,8 @@ import Nav from "@components/Nav";
 import Provider from "@components/Provider";
 export const metadata = {
   title: "Promptshare",
-  description: "Discover & Share AI Prompts",
+  description: "Discover & Share AI Promp2ts",
+  keywords: "SEO, test, Next.js, keywords",
 };
 const RootLayout = ({ children }) => {
   return (
