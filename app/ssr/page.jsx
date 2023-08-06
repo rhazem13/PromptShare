@@ -1,8 +1,10 @@
+'use server'
 import Head from "next/head";
+import { Fragment } from "react";
 
-const SEOTestPage = () => {
+const SEOTestPage = ({ data }) => {
   return (
-    <div>
+    <Fragment>
       <Head>
         <title>SEO Test Page | My Next.js App</title>
         <meta
@@ -22,9 +24,19 @@ const SEOTestPage = () => {
 
       <h1>SEO Test Page</h1>
       <p>This is a test page for SEO testing.</p>
+      <p>Data from the server: {data}</p>
       <img src="/images/seo-image.jpg" alt="SEO Image" />
-    </div>
+    </Fragment>
   );
 };
+
+export async function getServerSideProps() {
+  const data = "Sample data from server"; // Simulated data from the server
+  return {
+    props: {
+      data,
+    },
+  };
+}
 
 export default SEOTestPage;
