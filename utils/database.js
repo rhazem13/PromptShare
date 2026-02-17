@@ -7,6 +7,12 @@ export const connectToDB = async () => {
     console.log("=> mongoose is already connected");
     return;
   }
+
+  if (!process.env.MONGODB_URI) {
+    console.error("Missing MONGODB_URI environment variable");
+    return;
+  }
+
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
       dbName: "share_prompt",
