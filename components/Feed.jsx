@@ -59,6 +59,7 @@ const Feed = () => {
   };
   useEffect(() => {
     const fetchPrompts = async () => {
+      console.log("Feed Component Loaded: v2 (Safe Fetch)");
       try {
         const response = await fetch("/api/prompt", { next: { revalidate: 1 } });
 
