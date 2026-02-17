@@ -1,27 +1,30 @@
-'use server'
-import Head from "next/head";
 import { Fragment } from "react";
 
-const SEOTestPage = ({ data }) => {
+export const metadata = {
+  title: "SEO Test Page | My Next.js App",
+  description: "This is a test page for SEO testing.",
+  keywords: "SEO, test, Next.js, keywords",
+  authors: [{ name: "Your Name" }],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: "SEO Test Page",
+    description: "This is a test page for SEO testing.",
+    images: [
+      {
+        url: "/images/seo-image.jpg",
+      },
+    ],
+  },
+};
+
+const SEOTestPage = () => {
+  const data = "Sample data from server"; // Simulated data from the server
+
   return (
     <Fragment>
-      <Head>
-        <title>SEO Test Page | My Next.js App</title>
-        <meta
-          name="description"
-          content="This is a test page for SEO testing."
-        />
-        <meta name="keywords" content="SEO, test, Next.js, keywords" />
-        <meta name="author" content="Your Name" />
-        <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="SEO Test Page" />
-        <meta
-          property="og:description"
-          content="This is a test page for SEO testing."
-        />
-        <meta property="og:image" content="/images/seo-image.jpg" />
-      </Head>
-
       <h1>SEO Test Page</h1>
       <p>This is a test page for SEO testing.</p>
       <p>Data from the server: {data}</p>
@@ -29,14 +32,5 @@ const SEOTestPage = ({ data }) => {
     </Fragment>
   );
 };
-
-export async function getServerSideProps() {
-  const data = "Sample data from server"; // Simulated data from the server
-  return {
-    props: {
-      data,
-    },
-  };
-}
 
 export default SEOTestPage;
