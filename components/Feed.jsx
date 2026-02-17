@@ -59,12 +59,30 @@ const Feed = () => {
   };
   useEffect(() => {
     const fetchPrompts = async () => {
-      const response = await fetch("/api/prompt", { next: { revalidate: 1 } });
-      const data = await response.json();
-      setPrompts(data);
-      setFilteredPrompts(data);
+      try {
+        const response = await fetch("/api/prompt", { next: { revalidate: 1 } });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+          setPrompts(data);
+          setFilteredPrompts(data);
+        } else {
+          console.error("API returned non-array data:", data);
+          setPrompts([]);
+          setFilteredPrompts([]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch prompts:", error);
+        setPrompts([]);
+        setFilteredPrompts([]);
+      }
     };
-    if (isVisible ) {
+    if (isVisible) {
       fetchPrompts();
     }
   }, [isVisible]);

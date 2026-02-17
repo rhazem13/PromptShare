@@ -2,7 +2,7 @@ import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
 import { revalidatePath } from "next/cache";
 
-export const GET = async (request, {params}) => {
+export const GET = async (request, { params }) => {
   try {
     await connectToDB();
 
@@ -21,8 +21,8 @@ export const GET = async (request, {params}) => {
       headers: responseHeaders,
     });
   } catch (error) {
-    console.log(error);
-    return new Response(JSON.stringify(error), { status: 500 });
+    console.error("Failed to fetch prompts:", error);
+    return new Response(JSON.stringify({ error: "Failed to fetch prompts", details: error.message }), { status: 500 });
   }
   // comment
 };
