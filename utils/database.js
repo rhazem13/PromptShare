@@ -9,8 +9,7 @@ export const connectToDB = async () => {
   }
 
   if (!process.env.MONGODB_URI) {
-    console.error("Missing MONGODB_URI environment variable");
-    return;
+    throw new Error("MONGODB_URI must be configured");
   }
 
   try {
@@ -22,7 +21,6 @@ export const connectToDB = async () => {
     isConnected = true;
     console.log("=> mongoose is connected");
   } catch (error) {
-    console.log("=> mongoose connection error: ", error);
     throw error;
   }
 };

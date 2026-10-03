@@ -4,8 +4,8 @@ import Nav from "@components/Nav";
 import Provider from "@components/Provider";
 export const metadata = {
   title: "Promptshare",
-  description: "Discover & Share AI Promp2ts",
-  keywords: "SEO, test, Next.js, keywords",
+  description: "Discover and share text prompts.",
+  metadataBase: new URL(process.env.NEXTAUTH_URL || "https://prompt-share-tau.vercel.app"),
 };
 const RootLayout = ({ children }) => {
   return (

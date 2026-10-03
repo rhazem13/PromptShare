@@ -1,34 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PromptShare
 
-## Getting Started
+A Next.js application for publishing, finding, and managing text prompts. Public pages show shared prompts; Google sign-in lets users create and manage their own entries.
 
-First, run the development server:
+## Stack
 
-```bash
+Next.js App Router, React, NextAuth.js, MongoDB/Mongoose, and Tailwind CSS.
+
+## Local development
+
+```sh
+npm ci
+# Copy .env.example to .env.local and configure your own services.
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Configuration names: `GOOGLE_ID`, `GOOGLE_CLIENT_SECRET`, `MONGODB_URI`, `NEXTAUTH_SECRET`, and `NEXTAUTH_URL`. Use a fresh random session secret. Never commit credentials. Configure Google OAuth's redirect URL as `<site origin>/api/auth/callback/google`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Authentication and ownership
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Write routes read a verified server-side session. Create derives ownership from the authenticated database user; update and delete check the stored creator before modifying anything. Missing authentication returns 401; an authenticated non-owner receives 403. Client-supplied ownership IDs are ignored.
 
-## Learn More
+## Verification and deployment
 
-To learn more about Next.js, take a look at the following resources:
+```sh
+npm test
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The tests exercise write-route authorization with real Mongoose documents and stubbed authentication/database boundaries, without contacting the live application. Deploy through Vercel, configure the environment variables there, and set `NEXTAUTH_URL` to the production origin. Rotate credentials exposed in older repository history before restoring access.

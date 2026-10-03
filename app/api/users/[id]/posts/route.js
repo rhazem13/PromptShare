@@ -7,10 +7,10 @@ export const GET = async (request, {params}) => {
     
     const prompts = await Prompt.find({
         creator: params.id
-    }).populate("creator");
+    }).populate("creator", "username image");
     return new Response(JSON.stringify(prompts), { status: 200 });
   } catch (error) {
-    console.log(error);
-    return new Response(JSON.stringify(error), { status: 500 });
+    console.error("Database request failed");
+    return new Response(JSON.stringify({ message: "Request failed" }), { status: 500 });
   }
 };

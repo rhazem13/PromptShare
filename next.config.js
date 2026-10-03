@@ -1,7 +1,5 @@
 module.exports = {
-  experimental: {
-    serverActions: true,
-  },
+  outputFileTracingRoot: __dirname,
   images: {
     domains: ["example.com", "lh3.googleusercontent.com"],
   },
